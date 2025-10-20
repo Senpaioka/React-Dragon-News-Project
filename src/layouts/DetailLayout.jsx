@@ -1,11 +1,13 @@
-
+import Header from "../components/Header";
+import { Outlet } from "react-router";
 
 
 function DetailLayout() {
   return (
-    <div>
-      DetailLayout component
-    </div>
+    <>
+      <Header></Header>
+      <Outlet></Outlet>
+    </>
   );
 }
 

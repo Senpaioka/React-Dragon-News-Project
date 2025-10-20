@@ -33,12 +33,7 @@ function Home() {
         <HomeLeft category={categories} onSelect={handleSelectedCategory} editorial={editorial}/>
       </div>
 
-      {/* Main Content */}
-      {/* <div className="md:col-span-5 lg:col-span-7 order-1 md:order-2">
-        <Suspense fallback={<Spinner></Spinner>}>
-          <HomeMain news={newsCollection} />
-        </Suspense>
-      </div> */}
+      {/* Content */}
       <Outlet context={{ newsCollection }}></Outlet>
 
       {/* Right Sidebar */}

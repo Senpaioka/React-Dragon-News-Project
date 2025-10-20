@@ -1,11 +1,15 @@
 import { createBrowserRouter } from "react-router";
+import { lazy, Suspense } from "react";
 import BaseLayout from "../layouts/BaseLayout";
 import Home from "../pages/base/Home";
 import DetailLayout from "../layouts/DetailLayout";
-import Details from "../pages/details/Details";
 import About from "../pages/others/About";
 import Career from "../pages/others/Career";
 import HomeIndex from "../pages/base/HomeIndex";
+import Spinner from "../components/Spinner";
+// import DetailPage from "../pages/details/DetailPage";
+import Details from "../pages/details/Details";
+const DetailPage = lazy(() => import('../pages/details/DetailPage'));
 
 
 // loading data
@@ -64,11 +68,23 @@ const router = createBrowserRouter([
   {
       path: '/details/:id/',
       Component: DetailLayout,
-
+    
       children: [
           {
-              index: true,
-              Component: Details,
+             path: '/details/:id/',
+             Component: Details,
+             loader: loadingFetchingData,
+
+             children: [
+              {
+                index: true,
+                element: (
+                  <Suspense fallback={<Spinner></Spinner>}>
+                    <DetailPage></DetailPage>
+                  </Suspense>
+                )
+              }
+             ]
           }
       ]
     }
