@@ -34,11 +34,12 @@ function Home() {
       </div>
 
       {/* Main Content */}
-      <div className="md:col-span-5 lg:col-span-7 order-1 md:order-2">
+      {/* <div className="md:col-span-5 lg:col-span-7 order-1 md:order-2">
         <Suspense fallback={<Spinner></Spinner>}>
           <HomeMain news={newsCollection} />
         </Suspense>
-      </div>
+      </div> */}
+      <Outlet context={{ newsCollection }}></Outlet>
 
       {/* Right Sidebar */}
       <div className="md:col-span-8 lg:col-span-2 order-3">

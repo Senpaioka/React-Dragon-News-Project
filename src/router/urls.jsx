@@ -5,6 +5,7 @@ import DetailLayout from "../layouts/DetailLayout";
 import Details from "../pages/details/Details";
 import About from "../pages/others/About";
 import Career from "../pages/others/Career";
+import HomeIndex from "../pages/base/HomeIndex";
 
 
 // loading data
@@ -27,47 +28,51 @@ const loadingFetchingData = async () => {
 };
 
 
-
-
 const router = createBrowserRouter([
-    {
-        path: '/',
-        Component: BaseLayout,
+  {
+    path: "/",
+    Component: BaseLayout,
+    loader: loadingFetchingData,
+
+    children: [
+      {
+        path: "/",
+        Component: Home,
         loader: loadingFetchingData,
-
         children: [
-            {
-                index: true,
-                Component: Home,
-                loader: loadingFetchingData,
-            },
-            {
-                path: '/:category_name/',
-                Component: Home,
-                loader: loadingFetchingData
-            },
-            {
-              path: 'about',
-              Component: About
-            },
-            {
-              path: 'career',
-              Component: Career
-            }
-        ]
-    },
+          {
+            index: true,
+            Component: HomeIndex,
+          },
+          {
+            path: ":category_name",
+            Component: HomeIndex, 
+          },
+          {
+            path: 'about',
+            Component: About,
+          },
+          {
+            path: 'career',
+            Component: Career,
+          }
+        ],
+      },
+    ],
+  },
 
-    {
-        path: '/details/:id/',
-        Component: DetailLayout,
+  {
+      path: '/details/:id/',
+      Component: DetailLayout,
 
-        children: [
-            {
-                index: true,
-                Component: Details,
-            }
-        ]
+      children: [
+          {
+              index: true,
+              Component: Details,
+          }
+      ]
     }
-])
+]);
+
 
 export {router};
