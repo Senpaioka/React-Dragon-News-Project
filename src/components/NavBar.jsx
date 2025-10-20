@@ -15,9 +15,9 @@ function NavBar() {
 
             <div>
                 <ul className="flex items-center gap-5 ">
-                    <NavLink to="/"><li className='text-lg text-gray-500 hover:text-primary'>Home</li></NavLink>
-                    <NavLink><li className='text-lg text-gray-500 hover:text-primary'>About</li></NavLink>
-                    <NavLink><li className='text-lg text-gray-500 hover:text-primary'>Career</li></NavLink>
+                    <li className='text-lg text-gray-500 hover:text-primary'><NavLink to="/">Home</NavLink></li>
+                    <li className='text-lg text-gray-500 hover:text-primary'><NavLink to="/about">About</NavLink></li>
+                    <li className='text-lg text-gray-500 hover:text-primary'><NavLink to="/career">Career</NavLink></li>
                 </ul>
             </div>
 

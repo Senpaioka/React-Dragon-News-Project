@@ -1,15 +1,17 @@
-import { Outlet } from 'react-router';
+import { Outlet, useLoaderData } from 'react-router';
 import Header from '../components/Header';
 import BreakingNews from '../components/BreakingNews';
 import NavBar from '../components/NavBar';
-import Home from '../pages/base/Home';
 
 
 function BaseLayout() {
+
+  const { news } = useLoaderData();
+
   return (
   <>
       <Header></Header>
-      <BreakingNews></BreakingNews>
+      <BreakingNews news={news}></BreakingNews>
       <NavBar></NavBar>
       <Outlet></Outlet>
   </>
