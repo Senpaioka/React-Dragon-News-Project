@@ -1,13 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router';
 import NavBar from '../../components/NavBar';
 import { AuthContext } from '../../context/AuthContext';
 
 function Register() {
 
-  const {signWithGmail, isError} = useContext(AuthContext);
+  const {signWithGmail, isError, registerWithEmailAndPassword, isMessage, logoutUser} = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isAccepted, setIsAccepted] = useState(true);
+  const [newMessage, setNewMessage] = useState('');
+
+  function handleUserAgreement(event){
+    setIsAccepted(event.target.checked)
+  }
 
   // gmail auth
   function handleGmailAuth(event) {
@@ -20,6 +26,31 @@ function Register() {
   }
 
 
+  // register with email and password 
+  function handleManualAuth(event){
+    event.preventDefault();
+
+    const form = event.target;
+    const name = event.target.name.value;
+    const url = event.target.url.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    if (!isAccepted) {
+      setNewMessage('You Have To Agree Our Conditions');
+      return;
+    }
+
+    registerWithEmailAndPassword(name, url, email, password)
+    .then(() => {
+      logoutUser();
+      navigate('/login');
+    })
+
+    form.reset();
+  }
+
+
   return (
     <>
     <NavBar></NavBar>
@@ -28,7 +59,7 @@ function Register() {
             <h3 className='poppins-semibold text-3xl text-center p-10'>Register Your Account</h3>
             <span className="block w-full h-[1px] bg-gray-300"></span>
             <div className="card-body">
-                <form>
+                <form onSubmit={handleManualAuth}>
                   <fieldset className="fieldset">
 
                     <label className="label">Your Name</label>
@@ -44,7 +75,7 @@ function Register() {
                     <input type="password" className="input" name='password' placeholder="Password" />
 
                      <label className="label">
-                      <input type="checkbox" defaultChecked className="checkbox" />
+                      <input type="checkbox" checked={isAccepted} onChange={handleUserAgreement} className="checkbox" />
                       Accept Term & Conditions
                     </label>
                     
@@ -64,6 +95,7 @@ function Register() {
             </div>
             <p className='text-center text-secondary poppins-semibold text-base'>Already have an account? <Link to="/login" className='text-primary'>Login</Link></p>
             <p className='mt-3 text-base text-red-500 text-center'>{isError}</p>
+            <p className='mt-3 text-base text-green-500 text-center'>{isMessage || newMessage}</p>
             </div>
         </div>
     </>

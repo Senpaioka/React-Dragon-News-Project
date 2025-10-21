@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 function Login() {
 
-  const { signWithGmail, isError } = useContext(AuthContext);
+  const { signWithGmail, isError, isMessage, loginVerifiedUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,6 +20,22 @@ function Login() {
   }
 
 
+  // login with email and password
+  function handleLoginWithEmailAndPassword(event){
+    event.preventDefault();
+
+    const form = event.target;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    loginVerifiedUser(email, password)
+    .then(() => {
+      navigate(location.state || '/');
+    })
+
+    form.reset();
+  }
+
 
   return (
     <>
@@ -29,13 +45,13 @@ function Login() {
             <h3 className='poppins-semibold text-3xl text-center p-10'>Login Your Account</h3>
             <span className="block w-full h-[1px] bg-gray-300"></span>
             <div className="card-body">
-                <form>
+                <form onSubmit={handleLoginWithEmailAndPassword}>
                   <fieldset className="fieldset">
                     <label className="label">Email</label>
                     <input type="email" className="input" name="email" placeholder="Email" />
                     <label className="label">Password</label>
                     <input type="password" className="input" name='password' placeholder="Password" />
-                    <div><a className="link link-hover">Forgot password?</a></div>
+                    <div><Link to="/resetpassword" className="link link-hover">Forgot password?</Link></div>
                     <button className="btn bg-secondary text-white mt-4">Login</button>
                   </fieldset>
                 </form>
@@ -52,6 +68,7 @@ function Login() {
             </div>
               <p className='text-center text-secondary poppins-semibold text-base'>Don't Have an account? <Link to="/register" className='text-primary'>Register</Link></p>
               <p className='mt-3 text-base text-red-500 text-center'>{isError}</p>
+              <p className='mt-3 text-base text-green-500 text-center'>{isMessage}</p>
             </div>
         </div>
     </>

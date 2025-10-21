@@ -7,13 +7,12 @@ import About from "../pages/others/About";
 import Career from "../pages/others/Career";
 import HomeIndex from "../pages/base/HomeIndex";
 import Spinner from "../components/Spinner";
-// import DetailPage from "../pages/details/DetailPage";
 import Details from "../pages/details/Details";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 const DetailPage = lazy(() => import('../pages/details/DetailPage'));
-// import AuthProvider from "../context/AuthProvider";
 import PrivateRoute from '../context/PrivateRoute';
+import PasswordReset from "../pages/auth/PasswordReset";
 
 
 // loading data
@@ -110,6 +109,10 @@ const router = createBrowserRouter([
     {
       path: 'login',
       Component: Login,
+    },
+    {
+      path: 'resetpassword',
+      Component: PasswordReset,
     }
 ]);
 
