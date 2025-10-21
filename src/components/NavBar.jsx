@@ -1,9 +1,14 @@
 import { Link, NavLink } from 'react-router';
 import userDefault from '../assets/images/user.png';
-
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 
 function NavBar() {
+
+    const { user, logoutUser } = useContext(AuthContext);
+ 
+
   return (
     <nav>
         <div className="w-10/12 mx-auto flex justify-center md:justify-between items-center flex-wrap py-5 space-y-3">
@@ -24,7 +29,12 @@ function NavBar() {
 
             <div className='flex items-center gap-5'>
                 <img src={userDefault} alt="default user photo" />
-                <Link className='bg-secondary hover:bg-primary poppins-semibold text-lg text-white px-10 py-2 cursor-pointer'>Login</Link>
+                {
+                    user ?
+                    <button onClick={logoutUser} className='bg-secondary hover:bg-primary poppins-semibold text-lg text-white px-10 py-2 cursor-pointer'>Logout</button>
+                    :
+                    <Link to="/login" className='bg-secondary hover:bg-primary poppins-semibold text-lg text-white px-10 py-2 cursor-pointer'>Login</Link>
+                }
             </div>
         </div>
     </nav>

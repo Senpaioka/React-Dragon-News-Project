@@ -9,7 +9,10 @@ import HomeIndex from "../pages/base/HomeIndex";
 import Spinner from "../components/Spinner";
 // import DetailPage from "../pages/details/DetailPage";
 import Details from "../pages/details/Details";
+import Register from "../pages/auth/Register";
+import Login from "../pages/auth/Login";
 const DetailPage = lazy(() => import('../pages/details/DetailPage'));
+import AuthProvider from "../context/AuthProvider";
 
 
 // loading data
@@ -33,9 +36,15 @@ const loadingFetchingData = async () => {
 
 
 const router = createBrowserRouter([
-  {
+  // Home page
+   {
     path: "/",
     Component: BaseLayout,
+    // element: (
+    //   <AuthProvider>
+    //     <BaseLayout></BaseLayout>
+    //   </AuthProvider>
+    // ),
     loader: loadingFetchingData,
 
     children: [
@@ -65,6 +74,7 @@ const router = createBrowserRouter([
     ],
   },
 
+  // details page
   {
       path: '/details/:id/',
       Component: DetailLayout,
@@ -87,6 +97,16 @@ const router = createBrowserRouter([
              ]
           }
       ]
+    },
+
+    // authentication
+    {
+      path: 'register',
+      Component: Register
+    },
+    {
+      path: 'login',
+      Component: Login,
     }
 ]);
 
