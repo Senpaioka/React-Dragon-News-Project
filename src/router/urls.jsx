@@ -12,7 +12,8 @@ import Details from "../pages/details/Details";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 const DetailPage = lazy(() => import('../pages/details/DetailPage'));
-import AuthProvider from "../context/AuthProvider";
+// import AuthProvider from "../context/AuthProvider";
+import PrivateRoute from '../context/PrivateRoute';
 
 
 // loading data
@@ -89,9 +90,11 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: (
-                  <Suspense fallback={<Spinner></Spinner>}>
-                    <DetailPage></DetailPage>
-                  </Suspense>
+                  <PrivateRoute>
+                    <Suspense fallback={<Spinner></Spinner>}>
+                      <DetailPage></DetailPage>
+                    </Suspense>
+                  </PrivateRoute>
                 )
               }
              ]
