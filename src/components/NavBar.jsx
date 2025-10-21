@@ -13,9 +13,12 @@ function NavBar() {
     <nav>
         <div className="w-10/12 mx-auto flex justify-center md:justify-between items-center flex-wrap py-5 space-y-3">
             <div>
-                <p className='text-lg text-gray-600'>
-                    user@email.com
-                </p>
+                {
+                    user ? 
+                    <p className='text-lg text-gray-600'>@{user.displayName}</p>
+                    :
+                    <p className='text-lg text-gray-600'></p>
+                }
             </div>
 
             <div>
@@ -28,7 +31,12 @@ function NavBar() {
 
 
             <div className='flex items-center gap-5'>
-                <img src={userDefault} alt="default user photo" />
+                {
+                    user ?
+                    <img className='w-12 h-12 overflow-hidden object-cover rounded-full' src={user.photoURL || userDefault} alt={user.displayName || 'default_user_photo'} />
+                    :
+                    <img src={userDefault} alt="default user photo" />
+                }
                 {
                     user ?
                     <button onClick={logoutUser} className='bg-secondary hover:bg-primary poppins-semibold text-lg text-white px-10 py-2 cursor-pointer'>Logout</button>
